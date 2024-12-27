@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import uniqid from "uniqid";
-import { Db } from "../db/mysql.db";
 import { FileProcessorService } from "../services/fileProcessor.service";
+import { Db } from "../db/mysql.db";
 
 export const uploadFile = async (
   req: Request,
@@ -40,7 +40,7 @@ export const getUploadedFiles = async (
 ): Promise<void> => {
   try {
     const files = await Db.fileModel.findAll();
-    res.status(200).json({ data: files });
+    res.status(200).json({ files });
   } catch (error) {
     // logger.error("Error in getting uploaded files:", error);
     res

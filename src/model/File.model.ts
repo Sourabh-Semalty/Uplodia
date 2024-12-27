@@ -1,76 +1,49 @@
-import { Model, DataTypes, Sequelize } from "sequelize";
+import mongoose, { Document, Schema, model } from "mongoose";
 
-class File extends Model {
-  public id!: string;
-  public name!: string;
-  public path!: string;
-  public type!: string;
-  public status!: "processing" | "completed" | "failed" | "uploaded";
-  public uploaded_at!: Date;
+interface IFile extends Document {
+  id: string;
+  name: string;
+  path: string;
+  type: string;
+  status: "processing" | "completed" | "failed" | "uploaded";
+  uploaded_at: Date;
 }
 
-export default class FileModel {
-  private sequelize: Sequelize;
+const FileSchema: Schema = new Schema({
+  id: { type: String, required: true, unique: true },
+  name: { type: String, required: true },
+  path: { type: String, required: true },
+  type: { type: String, required: true },
+  status: {
+    type: String,
+    enum: ["processing", "completed", "failed", "uploaded"],
+    required: true,
+  },
+  uploaded_at: { type: Date, default: Date.now },
+});
 
-  constructor(sequelize: Sequelize) {
-    this.sequelize = sequelize;
-    this.initModel();
-  }
+const File = model<IFile>("File", FileSchema);
 
-  private async initModel() {
-    File.init(
-      {
-        id: {
-          type: DataTypes.STRING,
-          primaryKey: true,
-        },
-        name: {
-          type: DataTypes.STRING,
-          allowNull: false,
-        },
-        type: {
-          type: DataTypes.STRING,
-          allowNull: false,
-        },
-        path: {
-          type: DataTypes.STRING,
-          allowNull: false,
-        },
-        status: {
-          type: DataTypes.ENUM("processing", "completed", "failed", "uploaded"),
-          allowNull: false,
-        },
-        uploaded_at: {
-          type: DataTypes.DATE,
-          allowNull: false,
-        },
-      },
-      {
-        sequelize: this.sequelize,
-        modelName: "File",
-      }
-    );
-    // Ensure the model is synchronized with the database
-    await this.sequelize.sync();
-  }
-
-  async create(data: Partial<File>) {
+class FileModel {
+  async create(data: Partial<IFile>) {
     return await File.create(data);
   }
 
   async findAll() {
-    return await File.findAll();
+    return await File.find();
   }
 
   async findByPk(id: string) {
-    return await File.findByPk(id);
+    return await File.findById(id);
   }
 
   async deleteByPk(condition: { id: string }) {
-    return await File.destroy({ where: condition });
+    return await File.deleteOne(condition);
   }
 
-  async update(data: Partial<File>, condition: { id: string }) {
-    return await File.update(data, { where: condition });
+  async update(data: Partial<IFile>, condition: { id: string }) {
+    return await File.updateOne(condition, data);
   }
 }
+
+export default FileModel;
