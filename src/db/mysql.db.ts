@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 import FileMode from "../model/File.model";
+import { configDotenv } from "dotenv";
 
-const uri =
-  "mongodb+srv://uplodia:DGwB5rLfhRrmaXlJ@uplodia.073eq.mongodb.net/?retryWrites=true&w=majority&appName=uplodia";
+configDotenv();
+
+const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/uplodia";
 
 export class Db {
   static mongooseConnection: mongoose.Connection;
