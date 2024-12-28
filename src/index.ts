@@ -3,6 +3,7 @@ import { Db } from "./db/mysql.db";
 import fileRouter from "./routes/file.routes";
 
 const app = express();
+const port = process.env.PORT || 8080;
 
 async function main() {
   await Db.init();
@@ -14,8 +15,8 @@ async function main() {
       res.send("Hello World!");
     });
 
-  const server = app.listen(5000, () => {
-    console.log(`server listening on http://localhost:${5000}`);
+  const server = app.listen(port, () => {
+    console.log(`server listening on http://localhost:${port}`);
   });
 }
 
