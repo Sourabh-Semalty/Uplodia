@@ -6,14 +6,14 @@ import {
   updateFile,
   uploadFile,
 } from "../controller/file.controller";
-import { upload } from "../config/multer.config";
+import { handleMulterUpload } from "../config/multer.config";
 
 const fileRouter = express.Router();
 
 fileRouter
   .get("/", getUploadedFiles)
   .get("/download/:id", downloadFile)
-  .post("/upload", upload.single("file"), uploadFile)
+  .post("/upload", handleMulterUpload, uploadFile)
   .patch("/update/:id", updateFile)
   .delete("/delete/:id", deleteFile);
 

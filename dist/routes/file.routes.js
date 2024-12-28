@@ -10,7 +10,7 @@ const fileRouter = express_1.default.Router();
 fileRouter
     .get("/", file_controller_1.getUploadedFiles)
     .get("/download/:id", file_controller_1.downloadFile)
-    .post("/upload", multer_config_1.upload.single("file"), file_controller_1.uploadFile)
+    .post("/upload", multer_config_1.handleMulterUpload, file_controller_1.uploadFile)
     .patch("/update/:id", file_controller_1.updateFile)
     .delete("/delete/:id", file_controller_1.deleteFile);
 exports.default = fileRouter;
