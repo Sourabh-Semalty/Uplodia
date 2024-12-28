@@ -3,7 +3,7 @@ import { Db } from "./db/mysql.db";
 import fileRouter from "./routes/file.routes";
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 5000;
 
 async function main() {
   await Db.init();

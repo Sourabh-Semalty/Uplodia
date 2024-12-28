@@ -22,13 +22,13 @@ class FileModel {
         return await File.find();
     }
     async findByPk(id) {
-        return await File.findById(id);
+        return await File.findOne({ id: id });
     }
     async deleteByPk(condition) {
         return await File.deleteOne(condition);
     }
     async update(data, condition) {
-        return await File.updateOne(condition, data);
+        return await File.updateOne({ id: condition.id }, data);
     }
 }
 exports.default = FileModel;

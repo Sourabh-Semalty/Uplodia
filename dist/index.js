@@ -7,7 +7,7 @@ const express_1 = __importDefault(require("express"));
 const mysql_db_1 = require("./db/mysql.db");
 const file_routes_1 = __importDefault(require("./routes/file.routes"));
 const app = (0, express_1.default)();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 5000;
 async function main() {
     await mysql_db_1.Db.init();
     app

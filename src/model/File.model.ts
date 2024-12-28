@@ -34,7 +34,7 @@ class FileModel {
   }
 
   async findByPk(id: string) {
-    return await File.findById(id);
+    return await File.findOne({ id: id });
   }
 
   async deleteByPk(condition: { id: string }) {
@@ -42,7 +42,7 @@ class FileModel {
   }
 
   async update(data: Partial<IFile>, condition: { id: string }) {
-    return await File.updateOne(condition, data);
+    return await File.updateOne({ id: condition.id }, data);
   }
 }
 
