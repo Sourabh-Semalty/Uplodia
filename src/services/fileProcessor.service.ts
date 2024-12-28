@@ -15,7 +15,7 @@ export class FileProcessorService {
         originalName: file.originalname,
         processedName: file.filename,
         size: file.size,
-        mimeType: file.mimetype,
+        mimeType: file.mimetype.split("/")[1],
         processedAt: new Date().toISOString(),
       };
     } catch (error) {

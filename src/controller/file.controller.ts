@@ -19,7 +19,7 @@ export const uploadFile = async (
     await Db.fileModel.create({
       id: uniqueId,
       name: req.file.originalname,
-      type: req.file.mimetype,
+      type: req.file.mimetype.split("/")[1],
       path: req.file.path,
       status: result.success ? "completed" : "failed",
       uploaded_at: new Date(),
