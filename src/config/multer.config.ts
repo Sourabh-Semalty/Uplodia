@@ -4,6 +4,7 @@ import uniqid from "uniqid";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
+    console.log(__dirname);
     cb(null, "dist/uploads/");
   },
   filename: (req, file, cb) => {
